@@ -4,5 +4,28 @@
     <string name="app_name">BoxSyncTest</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="new_community_button">Create Community</string>
+    <string name="list_communities_button">List Communities</string>
+    <string name="list_people_button">List People</string>
+    <string name="add_person_button">Add Person</string>
+    <string name="title_activity_create_community">Create Community</string>
+    <string name="title_activity_add_person">Add Person</string>
+    <string name="person_name_hint">Name</string>
+    <string name="person_email_hint">Email</string>
+    <string name="person_description_hint">Description</string>
+    <string name="person_add_button">Add Person</string>
+    <string name="person_save_button">Save</string>
+    <string name="community_name_hint">Name</string>
+    <string name="community_owner_prompt">Select Owner</string>
+    <string name="community_add_button">Add Community</string>
+    <string name="community_save_button">Save</string>
+    <string name="community_type_hint">Type</string>
+    <string name="community_description_hint">Description</string>
+    <string name="community_cancel_button">Cancel</string>
+    <string name="person_cancel_button">Cancel</string>
+    <string name="title_activity_list_communities">Communities</string>
+    <string name="community_list_back_button">Back</string>
+    <string name="title_activity_list_people">People</string>
+    <string name="people_list_back_button">Back</string>
 
 </resources>

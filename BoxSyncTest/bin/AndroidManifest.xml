@@ -22,6 +22,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="org.ubicollab.android.boxsynctest.CreateCommunityActivity"
+            android:label="@string/title_activity_create_community"
+            android:parentActivityName="org.ubicollab.android.boxsynctest.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ubicollab.android.boxsynctest.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.ubicollab.android.boxsynctest.AddPersonActivity"
+            android:label="@string/title_activity_add_person"
+            android:parentActivityName="org.ubicollab.android.boxsynctest.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ubicollab.android.boxsynctest.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.ubicollab.android.boxsynctest.ListCommunitiesActivity"
+            android:label="@string/title_activity_list_communities" >
+        </activity>
+        <activity
+            android:name="org.ubicollab.android.boxsynctest.ListPeopleActivity"
+            android:label="@string/title_activity_list_people" >
+        </activity>
     </application>
 
 </manifest>

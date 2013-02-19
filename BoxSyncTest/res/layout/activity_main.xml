@@ -8,9 +8,47 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
+    <Button
+        android:id="@+id/create_community_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:text="@string/new_community_button"
+        android:onClick="createCommunity" />
+
+    <Button
+        android:id="@+id/list_communities_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/create_community_button"
+        android:layout_alignRight="@+id/create_community_button"
+        android:layout_below="@+id/create_community_button"
+        android:layout_marginTop="20dp"
+        android:text="@string/list_communities_button"
+        android:onClick="listCommunities" />
+
+    <Button
+        android:id="@+id/add_person_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/list_communities_button"
+        android:layout_alignRight="@+id/list_communities_button"
+        android:layout_below="@+id/list_communities_button"
+        android:layout_marginTop="20dp"
+        android:text="@string/add_person_button"
+        android:onClick="addPerson" />
+
+    <Button
+        android:id="@+id/list_people_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/add_person_button"
+        android:layout_alignRight="@+id/add_person_button"
+        android:layout_below="@+id/add_person_button"
+        android:layout_marginTop="20dp"
+        android:text="@string/list_people_button"
+        android:onClick="listPeople" />
 
 </RelativeLayout>
