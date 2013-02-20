@@ -16,6 +16,7 @@
 package org.ubicollab.android.boxsynctest.entitiy;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.societies.android.api.cis.SocialContract.People;
 
@@ -200,5 +201,10 @@ public class Community extends Entity {
 
 	public void setGlobalIdOwner(String globalIdOwner) {
 		this.globalIdOwner = globalIdOwner;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("(%d) %s", getId(), getName());
 	}
 }
