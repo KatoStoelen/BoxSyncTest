@@ -57,6 +57,14 @@
             android:layout_width="fill_parent" />
         
         <Button
+            android:id="@+id/community_delete_button"
+            android:layout_height="wrap_content"
+            android:text="@string/community_delete_button"
+            android:onClick="deleteCommunity"
+            android:layout_width="fill_parent"
+            android:visibility="gone" />
+        
+        <Button
             android:id="@+id/community_cancel_button"
             android:layout_height="wrap_content"
             android:text="@string/community_cancel_button"

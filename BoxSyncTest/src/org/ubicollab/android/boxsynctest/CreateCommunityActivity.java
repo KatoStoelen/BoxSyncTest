@@ -3,19 +3,24 @@ package org.ubicollab.android.boxsynctest;
 import java.util.List;
 
 import org.ubicollab.android.boxsynctest.entitiy.Community;
+import org.ubicollab.android.boxsynctest.entitiy.Entity;
 import org.ubicollab.android.boxsynctest.entitiy.Membership;
 import org.ubicollab.android.boxsynctest.entitiy.Person;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CreateCommunityActivity extends Activity {
@@ -29,22 +34,30 @@ public class CreateCommunityActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_community);
 		
+		Spinner ownerSpinner = (Spinner) findViewById(R.id.community_owner_list);
 		try {
 			List<Person> people = Person.getAllPeople(getContentResolver());
-			ArrayAdapter<Person> adapter = new ArrayAdapter<Person>(this, R.id.community_owner_list, people);
+			ArrayAdapter<Person> adapter = new ArrayAdapter<Person>(this, android.R.layout.simple_spinner_item, people);
 			
-			Spinner ownerSpinner = (Spinner) findViewById(R.id.community_owner_list);
 			ownerSpinner.setAdapter(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		Community community = null;
 		Intent intent = getIntent();
 		String serializedCommunity = intent.getStringExtra(EXTRA_COMMUNITY);
-		Community community = Community.deserialize(serializedCommunity, Community.class);
+		if (serializedCommunity != null)
+			community = Community.deserialize(serializedCommunity, Community.class);
 		
-		if (community != null)
+		if (community != null) {
 			populateFields(community);
+			ownerSpinner.setEnabled(false);
+			
+			findViewById(R.id.community_delete_button).setVisibility(View.VISIBLE);
+			((TextView) findViewById(R.id.create_community_title)).setText(getString(R.string.title_activity_edit_community));
+			((Button) findViewById(R.id.community_add_button)).setText(getString(R.string.community_save_button));
+		}
 	}
 
 	@Override
@@ -97,11 +110,14 @@ public class CreateCommunityActivity extends Activity {
 		Person owner = (Person) ownerSpinner.getSelectedItem();
 		mCommunity.setOwnerId(owner.getId());
 		
-		Uri communityUri = mCommunity.insert(getContentResolver());
-		long communityId = Long.parseLong(communityUri.getLastPathSegment());
-		
-		if (mCommunity == null)
-			addMembership(communityId, owner);
+		if (mCommunity.getId() == Entity.ENTITY_DEFAULT_ID) {
+			Uri communityUri = mCommunity.insert(getContentResolver());
+			long communityId = Long.parseLong(communityUri.getLastPathSegment());
+			if (mCommunity == null)
+				addMembership(communityId, owner);
+		} else {
+			mCommunity.update(getContentResolver());
+		}
 		
 		finish();
 	}
@@ -116,6 +132,24 @@ public class CreateCommunityActivity extends Activity {
 		membership.setType("owner");
 		
 		membership.insert(getContentResolver());
+	}
+	
+	public void deleteCommunity(View view) {
+		if (mCommunity != null && mCommunity.getId() != Entity.ENTITY_DEFAULT_ID) {
+			new AlertDialog.Builder(this)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setTitle("Delete")
+				.setMessage("Are you sure you want to delete this community?")
+				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						mCommunity.delete(getContentResolver());
+						finish();
+					}
+				})
+				.setNegativeButton("No", null)
+				.show();
+		}
 	}
 	
 	public void cancel(View view) {

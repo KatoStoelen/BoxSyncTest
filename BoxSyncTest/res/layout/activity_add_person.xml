@@ -51,6 +51,14 @@
             android:layout_width="fill_parent" />
         
         <Button
+            android:id="@+id/person_delete_button"
+            android:layout_height="wrap_content"
+            android:text="@string/person_delete_button"
+            android:onClick="deletePerson"
+            android:layout_width="fill_parent"
+            android:visibility="gone" />
+        
+        <Button
             android:id="@+id/person_cancel_button"
             android:layout_height="wrap_content"
             android:text="@string/person_cancel_button"

@@ -16,7 +16,6 @@
 package org.ubicollab.android.boxsynctest.entitiy;
 
 import java.util.List;
-import java.util.Locale;
 
 import org.societies.android.api.cis.SocialContract.People;
 
@@ -69,6 +68,29 @@ public class Community extends Entity {
 			community.fetchGlobalIds(resolver);
 		
 		return updatedCommunities;
+	}
+	
+	/**
+	 * Gets all the communities in the database.
+	 * @param resolver The content resolver.
+	 * @return All the communities in the database.
+	 * @throws Exception If an error occurs while fetching.
+	 */
+	public static List<Community> getAllCommunities(
+			ContentResolver resolver) throws Exception {
+		List<Community> communities = Entity.getEntities(
+				Community.class,
+				resolver,
+				CONTENT_URI,
+				null,
+				null,
+				null,
+				null);
+		
+		for (Community community : communities)
+			community.fetchGlobalIds(resolver);
+		
+		return communities;
 	}
 	
 	@Override

@@ -190,4 +190,9 @@ public class Person extends Entity {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("(%d) %s", getId(), getName());
+	}
 }
