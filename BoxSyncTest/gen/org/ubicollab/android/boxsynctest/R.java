@@ -24,19 +24,29 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f08001b;
+        public static final int action_settings=0x7f080025;
         public static final int add_person_button=0x7f080019;
         public static final int add_person_scroll_view=0x7f080000;
         public static final int add_person_title=0x7f080001;
+        public static final int community_activity_list_view=0x7f080024;
         public static final int community_add_button=0x7f08000e;
+        public static final int community_back_button=0x7f08001b;
         public static final int community_cancel_button=0x7f080010;
         public static final int community_delete_button=0x7f08000f;
         public static final int community_description_field=0x7f08000c;
+        public static final int community_description_label=0x7f08001f;
+        public static final int community_edit_button=0x7f080021;
         public static final int community_list_back_button=0x7f080012;
         public static final int community_list_view=0x7f080013;
+        public static final int community_message_field=0x7f080022;
         public static final int community_name_field=0x7f08000a;
+        public static final int community_name_label=0x7f08001c;
+        public static final int community_owner_label=0x7f08001e;
         public static final int community_owner_list=0x7f08000d;
+        public static final int community_post_button=0x7f080023;
+        public static final int community_show_members_button=0x7f080020;
         public static final int community_type_field=0x7f08000b;
+        public static final int community_type_label=0x7f08001d;
         public static final int create_community_button=0x7f080017;
         public static final int create_community_scroll_view=0x7f080008;
         public static final int create_community_title=0x7f080009;
@@ -73,22 +83,28 @@ public final class R {
         public static final int action_settings=0x7f050001;
         public static final int add_person_button=0x7f050005;
         public static final int app_name=0x7f050000;
-        public static final int community_add_button=0x7f050011;
-        public static final int community_cancel_button=0x7f050015;
-        public static final int community_delete_button=0x7f05001c;
-        public static final int community_description_hint=0x7f050014;
-        public static final int community_list_back_button=0x7f050018;
+        public static final int community_add_button=0x7f050012;
+        public static final int community_back_button=0x7f050022;
+        public static final int community_cancel_button=0x7f050017;
+        public static final int community_delete_button=0x7f05001f;
+        public static final int community_description_hint=0x7f050015;
+        public static final int community_edit_button=0x7f050021;
+        public static final int community_list_back_button=0x7f05001b;
+        public static final int community_message_hint=0x7f050016;
         public static final int community_name_hint=0x7f05000f;
+        public static final int community_owner_hint=0x7f050011;
         public static final int community_owner_prompt=0x7f050010;
-        public static final int community_save_button=0x7f050012;
-        public static final int community_type_hint=0x7f050013;
+        public static final int community_post_button=0x7f050023;
+        public static final int community_save_button=0x7f050013;
+        public static final int community_show_members=0x7f050018;
+        public static final int community_type_hint=0x7f050014;
         public static final int list_communities_button=0x7f050003;
         public static final int list_people_button=0x7f050004;
         public static final int new_community_button=0x7f050002;
-        public static final int people_list_back_button=0x7f05001a;
+        public static final int people_list_back_button=0x7f05001d;
         public static final int person_add_button=0x7f05000d;
-        public static final int person_cancel_button=0x7f050016;
-        public static final int person_delete_button=0x7f05001b;
+        public static final int person_cancel_button=0x7f050019;
+        public static final int person_delete_button=0x7f05001e;
         public static final int person_description_hint=0x7f05000c;
         public static final int person_email_hint=0x7f05000b;
         public static final int person_name_hint=0x7f05000a;
@@ -97,9 +113,9 @@ public final class R {
         public static final int title_activity_create_community=0x7f050006;
         public static final int title_activity_edit_community=0x7f050007;
         public static final int title_activity_edit_person=0x7f050009;
-        public static final int title_activity_list_communities=0x7f050017;
-        public static final int title_activity_list_people=0x7f050019;
-        public static final int title_activity_show_community=0x7f05001d;
+        public static final int title_activity_list_communities=0x7f05001a;
+        public static final int title_activity_list_people=0x7f05001c;
+        public static final int title_activity_show_community=0x7f050020;
     }
     public static final class style {
         /** 

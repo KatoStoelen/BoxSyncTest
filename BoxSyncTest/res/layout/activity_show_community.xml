@@ -1,12 +1,96 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"  
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ShowCommunityActivity" >
 
+    android:useDefaultMargins="true"
+    android:alignmentMode="alignBounds"
+    android:columnOrderPreserved="false"
 
-</RelativeLayout>
+    android:columnCount="4" >
+    
+    <Button
+        android:id="@+id/community_back_button"
+        android:onClick="back"
+        android:text="@string/community_back_button"
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnSpan="4" />
+
+    <TextView
+        android:text="@string/community_name_hint"
+        android:layout_gravity="right"
+        android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/community_name_label"
+        android:textIsSelectable="true"
+        android:layout_columnSpan="3"
+        android:layout_gravity="fill_horizontal" />
+    
+    <TextView
+        android:text="@string/community_type_hint"
+        android:layout_gravity="right"
+        android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/community_type_label"
+        android:textIsSelectable="true"
+        android:layout_columnSpan="3"
+        android:layout_gravity="fill_horizontal" />
+    
+    <TextView
+        android:text="@string/community_owner_hint"
+        android:layout_gravity="right"
+        android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/community_owner_label"
+        android:textIsSelectable="true"
+        android:layout_columnSpan="3"
+        android:layout_gravity="fill_horizontal" />
+    
+    <TextView
+        android:text="@string/community_description_hint"
+        android:layout_columnSpan="4"
+        android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/community_description_label"
+        android:textIsSelectable="true"
+        android:layout_columnSpan="4"
+        android:layout_rowSpan="2"
+        android:layout_gravity="fill_horizontal" />
+    
+    <Button
+        android:id="@+id/community_show_members_button"
+        android:onClick="showMembers"
+        android:text="@string/community_show_members"
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnSpan="2" />
+    
+    <Button
+        android:id="@+id/community_edit_button"
+        android:onClick="edit"
+        android:text="@string/community_edit_button"
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnSpan="2" />
+    
+    <EditText
+        android:id="@+id/community_message_field"
+        android:layout_columnSpan="3"
+        android:layout_rowSpan="2"
+        android:width="240dp"
+        android:hint="@string/community_message_hint"
+        android:inputType="text" />
+    
+    <Button
+        android:id="@+id/community_post_button"
+        android:onClick="edit"
+        android:text="@string/community_post_button"
+        android:layout_rowSpan="2" />
+    
+    <ListView
+        android:id="@+id/community_activity_list_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+</GridLayout>
