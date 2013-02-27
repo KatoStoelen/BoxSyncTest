@@ -43,10 +43,15 @@ public class Me extends Entity {
 	@Expose private long creationDate = System.currentTimeMillis() / 1000;
 	@Expose private long lastModifiedDate = System.currentTimeMillis() / 1000;
 	
-	
-	public static String getAccountName(
-			String accountType, ContentResolver resolver) throws Exception {
-		List<Me> meEntities = Entity.getEntities(
+	/**
+	 * Gets the Me entries with the specified account type.
+	 * @param accountType The account type.
+	 * @param resolver The content resolver.
+	 * @return A list of Me entries with the specified account type.
+	 * @throws Exception If an error occurs while fetching.
+	 */
+	public static List<Me> getMe(String accountType, ContentResolver resolver) throws Exception {
+		return Entity.getEntities(
 				Me.class,
 				resolver,
 				CONTENT_URI,
@@ -54,13 +59,8 @@ public class Me extends Entity {
 				ACCOUNT_TYPE + " = ?",
 				new String[] { accountType },
 				null);
-		
-		if (meEntities.size() > 0)
-			return meEntities.get(0).getAccountName();
-		else
-			return null;
 	}
-
+	
 	@Override
 	protected void populate(Cursor cursor) {
 		super.populate(cursor);

@@ -37,5 +37,9 @@
     <string name="community_edit_button">Edit</string>
     <string name="community_back_button">Back</string>
     <string name="community_post_button">Post</string>
+    <string name="placeholder">$EMPTY$</string>
+    <string name="title_activity_show_members">Members</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="member_list_back_button">Back</string>
 
 </resources>

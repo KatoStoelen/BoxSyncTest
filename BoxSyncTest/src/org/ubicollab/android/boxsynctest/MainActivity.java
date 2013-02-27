@@ -1,5 +1,7 @@
 package org.ubicollab.android.boxsynctest;
 
+import java.util.List;
+
 import org.ubicollab.android.boxsynctest.entitiy.Me;
 
 import android.os.Bundle;
@@ -21,8 +23,10 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		try {
-			Globals.ACCOUNT_NAME = Me.getAccountName(
-					Constants.ACCOUNT_TYPE, getContentResolver());
+			List<Me> meEntries = Me.getMe(Constants.ACCOUNT_TYPE, getContentResolver());
+			
+			if (meEntries.size() > 0)
+				Globals.ME_ENTRY = meEntries.get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

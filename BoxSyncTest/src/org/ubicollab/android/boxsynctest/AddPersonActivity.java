@@ -70,13 +70,14 @@ public class AddPersonActivity extends Activity {
 		if (mPerson == null)
 			mPerson = new Person();
 		
-		mPerson.setAccountName(Globals.ACCOUNT_NAME);
+		mPerson.setAccountName(Globals.ME_ENTRY.getAccountName());
 		mPerson.setAccountType(Constants.ACCOUNT_TYPE);
+		mPerson.setGlobalId(email);
 		mPerson.setDirty(1);
 		mPerson.setEmail(email);
 		mPerson.setName(name);
 		mPerson.setDescription(description);
-		mPerson.setUserName(Globals.ACCOUNT_NAME);
+		mPerson.setUserName(email);
 		
 		if (mPerson.getId() == Entity.ENTITY_DEFAULT_ID)
 			mPerson.insert(getContentResolver());

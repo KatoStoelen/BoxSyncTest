@@ -15,11 +15,9 @@
  */
 package org.ubicollab.android.boxsynctest;
 
-/**
- * 
- * @author Kato
- */
+import org.ubicollab.android.boxsynctest.entitiy.Me;
+
 public class Globals {
 
-	public static String ACCOUNT_NAME;
+	public static Me ME_ENTRY;
 }

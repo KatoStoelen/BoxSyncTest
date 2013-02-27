@@ -16,34 +16,47 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class ListCommunitiesActivity extends Activity {
+	
+	private ListView mCommunityList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_communities);
 		
-		final ListView communityList = (ListView) findViewById(R.id.community_list_view);
+		mCommunityList = (ListView) findViewById(R.id.community_list_view);
 		
-		try {
-			List<Community> communities = Community.getAllCommunities(getContentResolver());
-			ArrayAdapter<Community> adapter = new ArrayAdapter<Community>(this, android.R.layout.simple_list_item_1, communities);
-			
-			communityList.setAdapter(adapter);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		populate();
 		
 		final Context context = this;
-		communityList.setOnItemClickListener(new OnItemClickListener() {
+		mCommunityList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-				Community community = (Community) communityList.getItemAtPosition(pos);
+				Community community = (Community) mCommunityList.getItemAtPosition(pos);
 				
 				Intent intent = new Intent(context, ShowCommunityActivity.class);
 				intent.putExtra(ShowCommunityActivity.EXTRA_COMMUNITY, community.serialize());
 				startActivity(intent);
 			}
 		});
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		populate();
+	}
+
+	private void populate() {
+		try {
+			List<Community> communities = Community.getAllCommunities(getContentResolver());
+			ArrayAdapter<Community> adapter = new ArrayAdapter<Community>(this, android.R.layout.simple_list_item_1, communities);
+			
+			mCommunityList.setAdapter(adapter);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

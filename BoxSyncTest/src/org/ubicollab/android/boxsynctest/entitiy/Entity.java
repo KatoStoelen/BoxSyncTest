@@ -66,6 +66,27 @@ public abstract class Entity {
 	}
 	
 	/**
+	 * Marks the specified entities for deletion.
+	 * @param contentUri The content URI.
+	 * @param where The WHERE clause in the update statement.
+	 * @param selectionArgs The list of arguments used in the WHERE statement.
+	 * @param resolver The content resolver.
+	 * @return The number of entities marked for deletion.
+	 * @throws Exception If an error occurs while interacting with database.
+	 */
+	protected static int markEntitiesForDeletion(
+			Uri contentUri,
+			String where,
+			String[] selectionArgs,
+			ContentResolver resolver
+	) throws Exception {
+		ContentValues values = new ContentValues();
+		values.put(DELETED, 1);
+		
+		return resolver.update(contentUri, values, where, selectionArgs);
+	}
+	
+	/**
 	 * Gets the deleted entities of the specified type.
 	 * @param entityClass The class of the entities.
 	 * @param resolver The content resolver.
@@ -390,13 +411,30 @@ public abstract class Entity {
 	}
 	
 	/**
+	 * Marks the entity for deletion.
+	 * @param resolver The content resolver.
+	 * @return The number of entities marked for deletion. Should be only one.
+	 * @throws IllegalStateException If the entity is not in the database.
+	 */
+	public int markForDeletion(ContentResolver resolver) throws IllegalStateException {
+		if (getId() != ENTITY_DEFAULT_ID) {
+			Uri contentUri = ContentUris.withAppendedId(getContentUri(), getId());
+			ContentValues values = new ContentValues();
+			values.put(DELETED, 1);
+			
+			return resolver.update(contentUri, values, null, null);
+		} else {
+			throw new IllegalStateException("The entity is not in the database.");
+		}
+	}
+	
+	/**
 	 * Serializes the entity into a string.
 	 * @return A string representation of the entity, or <code>null</code> if the
 	 * serialization fails.
 	 */
 	public String serialize() {
-		Gson serializer = new GsonBuilder()
-			.excludeFieldsWithoutExposeAnnotation().create();
+		Gson serializer = new GsonBuilder().create();
 		return serializer.toJson(this);
 	}
 	

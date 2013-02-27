@@ -17,36 +17,36 @@
 
     <TextView
         android:text="@string/community_name_hint"
-        android:layout_gravity="right"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_columnSpan="1" />
     
     <TextView
         android:id="@+id/community_name_label"
         android:textIsSelectable="true"
         android:layout_columnSpan="3"
-        android:layout_gravity="fill_horizontal" />
+        android:text="@string/placeholder" />
     
     <TextView
         android:text="@string/community_type_hint"
-        android:layout_gravity="right"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_columnSpan="1" />
     
     <TextView
         android:id="@+id/community_type_label"
         android:textIsSelectable="true"
         android:layout_columnSpan="3"
-        android:layout_gravity="fill_horizontal" />
+        android:text="@string/placeholder" />
     
     <TextView
         android:text="@string/community_owner_hint"
-        android:layout_gravity="right"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_columnSpan="1" />
     
     <TextView
         android:id="@+id/community_owner_label"
         android:textIsSelectable="true"
         android:layout_columnSpan="3"
-        android:layout_gravity="fill_horizontal" />
+        android:text="@string/placeholder" />
     
     <TextView
         android:text="@string/community_description_hint"
@@ -55,10 +55,10 @@
     
     <TextView
         android:id="@+id/community_description_label"
-        android:textIsSelectable="true"
         android:layout_columnSpan="4"
-        android:layout_rowSpan="2"
-        android:layout_gravity="fill_horizontal" />
+        android:layout_gravity="fill_horizontal"
+        android:layout_rowSpan="3"
+        android:textIsSelectable="true" />
     
     <Button
         android:id="@+id/community_show_members_button"
@@ -77,20 +77,19 @@
     <EditText
         android:id="@+id/community_message_field"
         android:layout_columnSpan="3"
-        android:layout_rowSpan="2"
-        android:width="240dp"
+        android:width="245dp"
+        android:layout_gravity="fill_horizontal"
         android:hint="@string/community_message_hint"
         android:inputType="text" />
     
     <Button
         android:id="@+id/community_post_button"
-        android:onClick="edit"
-        android:text="@string/community_post_button"
-        android:layout_rowSpan="2" />
+        android:onClick="postMessage"
+        android:layout_gravity="fill_horizontal"
+        android:text="@string/community_post_button"  />
     
     <ListView
         android:id="@+id/community_activity_list_view"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_columnSpan="4" />
 
 </GridLayout>

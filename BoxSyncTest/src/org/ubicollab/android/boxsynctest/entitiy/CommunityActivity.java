@@ -70,6 +70,51 @@ public class CommunityActivity extends Entity {
 		return updatedActivities;
 	}
 	
+	/**
+	 * Gets the activity feed of the specified community.
+	 * @param communityId The ID of the community.
+	 * @param resolver The content resolver.
+	 * @return The feed of the specified community.
+	 * @throws Exception If an error occurs while fetching.
+	 */
+	public static List<CommunityActivity> getCommunityFeed(
+			long communityId, ContentResolver resolver) throws Exception {
+		List<CommunityActivity> feed = Entity.getEntities(
+				CommunityActivity.class,
+				resolver,
+				CONTENT_URI,
+				null,
+				_ID_FEED_OWNER + " = " + communityId,
+				null,
+				LAST_MODIFIED_DATE + " DESC");
+		
+		for (CommunityActivity activity : feed)
+			activity.fetchGlobalIds(resolver);
+		
+		return feed;
+	}
+	
+	/**
+	 * Deletes the whole feed of a community.
+	 * @param communityId The ID of the community.
+	 * @param forceDelete If <code>true</code> the feed will be forcefully removed
+	 * from the database, while <code>false</code> will just mark the feed for deletion.
+	 * @param resolver The content resolver.
+	 * @return The number of feed entries deleted (or marked for deletion).
+	 * @throws Exception If an error occurs while interacting with the database.
+	 */
+	public static int deleteCommunityFeed(
+			long communityId,
+			boolean forceDelete,
+			ContentResolver resolver) throws Exception {
+		String where = _ID_FEED_OWNER + " = " + communityId;
+		if (forceDelete) {
+			return resolver.delete(CONTENT_URI, where, null);
+		} else {
+			return Entity.markEntitiesForDeletion(CONTENT_URI, where, null, resolver);
+		}
+	}
+	
 	@Override
 	protected void populate(Cursor cursor) {
 		super.populate(cursor);
@@ -210,5 +255,10 @@ public class CommunityActivity extends Entity {
 	
 	public void setGlobalIdFeedOwner(String globalIdFeedOwner) {
 		this.globalIdFeedOwner = globalIdFeedOwner;
+	}
+	
+	@Override
+	public String toString() {
+		return getVerb();
 	}
 }

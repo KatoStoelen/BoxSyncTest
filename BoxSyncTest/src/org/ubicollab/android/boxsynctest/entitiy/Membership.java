@@ -71,6 +71,52 @@ public class Membership extends Entity {
 		return updatedMemberships;
 	}
 	
+	/**
+	 * Gets the memberships of the specified community.
+	 * @param communityId The ID of the community.
+	 * @param resolver The content resolver.
+	 * @return The list of members of the specified community.
+	 * @throws Exception If an error occurs while interacting with the database.
+	 */
+	public static List<Membership> getCommunityMembers(
+			long communityId, ContentResolver resolver) throws Exception {
+		List<Membership> memberships = Entity.getEntities(
+				Membership.class,
+				resolver,
+				CONTENT_URI,
+				null,
+				_ID_COMMUNITY + " = " + communityId,
+				null,
+				null);
+		
+		for (Membership membership : memberships)
+			membership.fetchGlobalIds(resolver);
+		
+		return memberships;
+	}
+	
+	/**
+	 * Deletes all the memberships of the specified community.
+	 * @param communityId The ID of the community.
+	 * @param forceDelete If <code>true</code> the memberships will be forcefully removed
+	 * from the database, while <code>false</code> will just mark the memberships for deletion.
+	 * @param resolver The content resolver.
+	 * @return The number of memberships deleted (or marked for deletion).
+	 * @throws Exception If an error occurs while interacting with the database.
+	 */
+	public static int deleteCommunityMemberships(
+			long communityId,
+			boolean forceDelete,
+			ContentResolver resolver
+	) throws Exception {
+		String where = _ID_COMMUNITY + " = " + communityId;
+		if (forceDelete) {
+			return resolver.delete(CONTENT_URI, where, null);
+		} else {
+			return Entity.markEntitiesForDeletion(CONTENT_URI, where, null, resolver);
+		}
+	}
+	
 	@Override
 	protected void populate(Cursor cursor) {
 		super.populate(cursor);

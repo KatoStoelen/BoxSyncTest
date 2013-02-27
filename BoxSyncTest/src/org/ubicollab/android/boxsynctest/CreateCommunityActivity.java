@@ -2,7 +2,9 @@ package org.ubicollab.android.boxsynctest;
 
 import java.util.List;
 
+import org.societies.android.api.cis.SocialContract;
 import org.ubicollab.android.boxsynctest.entitiy.Community;
+import org.ubicollab.android.boxsynctest.entitiy.CommunityActivity;
 import org.ubicollab.android.boxsynctest.entitiy.Entity;
 import org.ubicollab.android.boxsynctest.entitiy.Membership;
 import org.ubicollab.android.boxsynctest.entitiy.Person;
@@ -26,6 +28,10 @@ import android.widget.Toast;
 public class CreateCommunityActivity extends Activity {
 	
 	public static final String EXTRA_COMMUNITY = "extra_community";
+	
+	public static final int RESULT_CODE_CANCELLED = 100;
+	public static final int RESULT_CODE_EDITED = 110;
+	public static final int RESULT_CODE_DELETED = 120;
 	
 	private Community mCommunity = null;
 
@@ -99,7 +105,7 @@ public class CreateCommunityActivity extends Activity {
 		if (mCommunity == null)
 			mCommunity = new Community();
 		
-		mCommunity.setAccountName(Globals.ACCOUNT_NAME);
+		mCommunity.setAccountName(Globals.ME_ENTRY.getAccountName());
 		mCommunity.setAccountType(Constants.ACCOUNT_TYPE);
 		mCommunity.setDirty(1);
 		mCommunity.setName(((EditText) findViewById(R.id.community_name_field)).getText().toString());
@@ -111,6 +117,7 @@ public class CreateCommunityActivity extends Activity {
 		mCommunity.setOwnerId(owner.getId());
 		
 		if (mCommunity.getId() == Entity.ENTITY_DEFAULT_ID) {
+			mCommunity.setGlobalId(SocialContract.GLOBAL_ID_PENDING);
 			Uri communityUri = mCommunity.insert(getContentResolver());
 			long communityId = Long.parseLong(communityUri.getLastPathSegment());
 			if (mCommunity == null)
@@ -119,12 +126,16 @@ public class CreateCommunityActivity extends Activity {
 			mCommunity.update(getContentResolver());
 		}
 		
+		Intent data = new Intent();
+		data.putExtra(EXTRA_COMMUNITY, mCommunity.serialize());
+		setResult(RESULT_CODE_EDITED, data);
+		
 		finish();
 	}
 	
 	private void addMembership(long communityId, Person member) {
 		Membership membership = new Membership();
-		membership.setAccountName(Globals.ACCOUNT_NAME);
+		membership.setAccountName(Globals.ME_ENTRY.getAccountName());
 		membership.setAccountType(Constants.ACCOUNT_TYPE);
 		membership.setDirty(1);
 		membership.setCommunityId(communityId);
@@ -143,7 +154,18 @@ public class CreateCommunityActivity extends Activity {
 				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						mCommunity.delete(getContentResolver());
+						try {
+							// TODO: SET FORCE DELETE TO FALSE WHEN SYNCING
+							Membership.deleteCommunityMemberships(mCommunity.getId(), true, getContentResolver());
+							CommunityActivity.deleteCommunityFeed(mCommunity.getId(), true, getContentResolver());
+							mCommunity.delete(getContentResolver());
+							// TODO: mCommunity.markForDeletion(getContentResolver());
+							
+							setResult(RESULT_CODE_DELETED, new Intent());
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						
 						finish();
 					}
 				})
@@ -153,6 +175,7 @@ public class CreateCommunityActivity extends Activity {
 	}
 	
 	public void cancel(View view) {
+		setResult(RESULT_CODE_CANCELLED, new Intent());
 		finish();
 	}
 }

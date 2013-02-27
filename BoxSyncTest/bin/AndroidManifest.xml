@@ -7,9 +7,9 @@
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="17" />
-    
-    <uses-permission android:name="org.societies.android.SocialProvider.READ"/>
-    <uses-permission android:name="org.societies.android.SocialProvider.WRITE"/>
+
+    <uses-permission android:name="org.societies.android.SocialProvider.READ" />
+    <uses-permission android:name="org.societies.android.SocialProvider.WRITE" />
 
     <application
         android:allowBackup="true"
@@ -52,6 +52,10 @@
         <activity
             android:name="org.ubicollab.android.boxsynctest.ShowCommunityActivity"
             android:label="@string/title_activity_show_community" >
+        </activity>
+        <activity
+            android:name="org.ubicollab.android.boxsynctest.ShowMembersActivity"
+            android:label="@string/title_activity_show_members" >
         </activity>
     </application>
 
