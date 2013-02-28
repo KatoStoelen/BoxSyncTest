@@ -41,5 +41,7 @@
     <string name="title_activity_show_members">Members</string>
     <string name="hello_world">Hello world!</string>
     <string name="member_list_back_button">Back</string>
+    <string name="membership_person_prompt">Select Member</string>
+    <string name="membership_add_button">Add Member</string>
 
 </resources>

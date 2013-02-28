@@ -17,33 +17,46 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class ListPeopleActivity extends Activity {
 
+	private ListView mPeopleList;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_people);
 		
-		final ListView peopleList = (ListView) findViewById(R.id.people_list_view);
+		mPeopleList = (ListView) findViewById(R.id.people_list_view);
 		
-		try {
-			List<Person> people = Person.getAllPeople(getContentResolver());
-			ArrayAdapter<Person> adapter = new ArrayAdapter<Person>(this, android.R.layout.simple_list_item_1, people);
-			
-			peopleList.setAdapter(adapter);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		populate();
 		
 		final Context context = this;
-		peopleList.setOnItemClickListener(new OnItemClickListener() {
+		mPeopleList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-				Person person = (Person) peopleList.getItemAtPosition(pos);
+				Person person = (Person) mPeopleList.getItemAtPosition(pos);
 				
 				Intent intent = new Intent(context, AddPersonActivity.class);
 				intent.putExtra(AddPersonActivity.EXTRA_PERSON, person.serialize());
 				startActivity(intent);
 			}
 		});
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		populate();
+	}
+
+	private void populate() {
+		try {
+			List<Person> people = Person.getAllPeople(getContentResolver());
+			ArrayAdapter<Person> adapter = new ArrayAdapter<Person>(this, android.R.layout.simple_list_item_1, people);
+			
+			mPeopleList.setAdapter(adapter);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

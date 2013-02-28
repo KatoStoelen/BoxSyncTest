@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 public class CreateCommunityActivity extends Activity {
 	
+	public static final String TAG = "CreateCommunityActivity";
 	public static final String EXTRA_COMMUNITY = "extra_community";
 	
 	public static final int RESULT_CODE_CANCELLED = 100;
@@ -118,10 +119,11 @@ public class CreateCommunityActivity extends Activity {
 		
 		if (mCommunity.getId() == Entity.ENTITY_DEFAULT_ID) {
 			mCommunity.setGlobalId(SocialContract.GLOBAL_ID_PENDING);
+			
 			Uri communityUri = mCommunity.insert(getContentResolver());
 			long communityId = Long.parseLong(communityUri.getLastPathSegment());
-			if (mCommunity == null)
-				addMembership(communityId, owner);
+			
+			addMembership(communityId, owner);
 		} else {
 			mCommunity.update(getContentResolver());
 		}
@@ -135,6 +137,7 @@ public class CreateCommunityActivity extends Activity {
 	
 	private void addMembership(long communityId, Person member) {
 		Membership membership = new Membership();
+		membership.setGlobalId(SocialContract.GLOBAL_ID_PENDING);
 		membership.setAccountName(Globals.ME_ENTRY.getAccountName());
 		membership.setAccountType(Constants.ACCOUNT_TYPE);
 		membership.setDirty(1);

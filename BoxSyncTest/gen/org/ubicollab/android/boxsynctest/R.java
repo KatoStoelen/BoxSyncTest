@@ -24,7 +24,7 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080028;
+        public static final int action_settings=0x7f08002a;
         public static final int add_person_button=0x7f080019;
         public static final int add_person_scroll_view=0x7f080000;
         public static final int add_person_title=0x7f080001;
@@ -57,6 +57,8 @@ public final class R {
         public static final int list_people_title=0x7f080014;
         public static final int member_list_back_button=0x7f080026;
         public static final int members_list_view=0x7f080027;
+        public static final int membership_add_button=0x7f080029;
+        public static final int membership_person_list=0x7f080028;
         public static final int people_list_back_button=0x7f080015;
         public static final int people_list_view=0x7f080016;
         public static final int person_add_button=0x7f080005;
@@ -107,6 +109,8 @@ public final class R {
         public static final int list_communities_button=0x7f050003;
         public static final int list_people_button=0x7f050004;
         public static final int member_list_back_button=0x7f050027;
+        public static final int membership_add_button=0x7f050029;
+        public static final int membership_person_prompt=0x7f050028;
         public static final int new_community_button=0x7f050002;
         public static final int people_list_back_button=0x7f05001d;
         public static final int person_add_button=0x7f05000d;

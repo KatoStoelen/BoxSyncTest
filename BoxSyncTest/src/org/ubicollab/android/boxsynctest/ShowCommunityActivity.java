@@ -7,9 +7,12 @@ import org.ubicollab.android.boxsynctest.entitiy.Community;
 import org.ubicollab.android.boxsynctest.entitiy.CommunityActivity;
 import org.ubicollab.android.boxsynctest.entitiy.Person;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -45,6 +48,11 @@ public class ShowCommunityActivity extends Activity {
 		}
 		
 		populate();
+		
+		getContentResolver().registerContentObserver(
+				SocialContract.CommunityActivity.CONTENT_URI,
+				true,
+				new FeedObserver(new Handler(), this));
 	}
 
 	private void populate() {
@@ -85,8 +93,7 @@ public class ShowCommunityActivity extends Activity {
 				String serializedCommunity = data
 						.getStringExtra(CreateCommunityActivity.EXTRA_COMMUNITY);
 				if (serializedCommunity != null) {
-					mCommunity = Community.deserialize(serializedCommunity,
-							Community.class);
+					mCommunity = Community.deserialize(serializedCommunity, Community.class);
 
 					try {
 						mOwner = Person.getEntity(Person.class,
@@ -146,5 +153,28 @@ public class ShowCommunityActivity extends Activity {
 	
 	private void clearMessageField() {
 		((EditText) findViewById(R.id.community_message_field)).setText(new String());
+	}
+	
+	private class FeedObserver extends ContentObserver {
+		
+		private ShowCommunityActivity mActivity;
+
+		public FeedObserver(Handler handler, ShowCommunityActivity activity) {
+			super(handler);
+			
+			mActivity = activity;
+		}
+		
+		@Override
+		public boolean deliverSelfNotifications() {
+			return false;
+		}
+		
+		@Override
+		public void onChange(boolean selfChange, Uri uri) {
+			super.onChange(selfChange, uri);
+			
+			mActivity.updateFeed();
+		}
 	}
 }
