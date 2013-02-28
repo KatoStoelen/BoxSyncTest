@@ -158,11 +158,11 @@ public class CreateCommunityActivity extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						try {
-							// TODO: SET FORCE DELETE TO FALSE WHEN SYNCING
-							Membership.deleteCommunityMemberships(mCommunity.getId(), true, getContentResolver());
-							CommunityActivity.deleteCommunityFeed(mCommunity.getId(), true, getContentResolver());
-							mCommunity.delete(getContentResolver());
-							// TODO: mCommunity.markForDeletion(getContentResolver());
+							// SET FORCE DELETE TO FALSE WHEN SYNCING
+							Membership.deleteCommunityMemberships(mCommunity.getId(), false, getContentResolver());
+							CommunityActivity.deleteCommunityFeed(mCommunity.getId(), false, getContentResolver());
+							//mCommunity.delete(getContentResolver());
+							mCommunity.markForDeletion(getContentResolver());
 							
 							setResult(RESULT_CODE_DELETED, new Intent());
 						} catch (Exception e) {
