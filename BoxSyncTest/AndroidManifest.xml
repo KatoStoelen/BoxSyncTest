@@ -5,8 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="17"
-        android:targetSdkVersion="17" />
+        android:minSdkVersion="14"
+        android:targetSdkVersion="14" />
 
     <uses-permission android:name="org.societies.android.SocialProvider.READ" />
     <uses-permission android:name="org.societies.android.SocialProvider.WRITE" />
@@ -27,19 +27,11 @@
         </activity>
         <activity
             android:name="org.ubicollab.android.boxsynctest.CreateCommunityActivity"
-            android:label="@string/title_activity_create_community"
-            android:parentActivityName="org.ubicollab.android.boxsynctest.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.ubicollab.android.boxsynctest.MainActivity" />
+            android:label="@string/title_activity_create_community" >
         </activity>
         <activity
             android:name="org.ubicollab.android.boxsynctest.AddPersonActivity"
-            android:label="@string/title_activity_add_person"
-            android:parentActivityName="org.ubicollab.android.boxsynctest.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.ubicollab.android.boxsynctest.MainActivity" />
+            android:label="@string/title_activity_add_person" >
         </activity>
         <activity
             android:name="org.ubicollab.android.boxsynctest.ListCommunitiesActivity"

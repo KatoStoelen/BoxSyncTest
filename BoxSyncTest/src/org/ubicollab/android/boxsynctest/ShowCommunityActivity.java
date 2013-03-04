@@ -171,8 +171,8 @@ public class ShowCommunityActivity extends Activity {
 		}
 		
 		@Override
-		public void onChange(boolean selfChange, Uri uri) {
-			super.onChange(selfChange, uri);
+		public void onChange(boolean selfChange) {
+			super.onChange(selfChange);
 			
 			mActivity.updateFeed();
 		}
