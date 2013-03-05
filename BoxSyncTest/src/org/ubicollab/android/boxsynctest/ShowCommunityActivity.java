@@ -7,7 +7,6 @@ import org.ubicollab.android.boxsynctest.entitiy.Community;
 import org.ubicollab.android.boxsynctest.entitiy.CommunityActivity;
 import org.ubicollab.android.boxsynctest.entitiy.Person;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;

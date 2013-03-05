@@ -2,12 +2,15 @@ package org.ubicollab.android.boxsynctest;
 
 import java.util.List;
 
+import org.societies.android.api.cis.SocialContract;
 import org.ubicollab.android.boxsynctest.entitiy.Community;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,6 +42,11 @@ public class ListCommunitiesActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+		
+		getContentResolver().registerContentObserver(
+				SocialContract.Communities.CONTENT_URI,
+				true,
+				new CommunityObserver(new Handler(), this));
 	}
 	
 	@Override
@@ -68,5 +76,28 @@ public class ListCommunitiesActivity extends Activity {
 
 	public void back(View view) {
 		finish();
+	}
+	
+	private class CommunityObserver extends ContentObserver {
+
+		private ListCommunitiesActivity mActivity;
+		
+		public CommunityObserver(Handler handler, ListCommunitiesActivity activity) {
+			super(handler);
+			
+			mActivity = activity;
+		}
+		
+		@Override
+		public boolean deliverSelfNotifications() {
+			return false;
+		}
+		
+		@Override
+		public void onChange(boolean selfChange) {
+			super.onChange(selfChange);
+			
+			mActivity.populate();
+		}
 	}
 }
