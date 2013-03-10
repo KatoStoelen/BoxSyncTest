@@ -51,6 +51,8 @@ public class Sharing extends Entity {
 	@Expose private String globalIdOwner;
 	@Expose private String globalIdCommunity;
 	
+	private Service service;
+	
 	/**
 	 * Gets a list of all the "dirty" sharings.
 	 * @param resolver The content resolver.
@@ -72,6 +74,37 @@ public class Sharing extends Entity {
 			sharing.fetchGlobalIds(resolver);
 		
 		return sharings;
+	}
+	
+	public static List<Sharing> getSharingOfCommunity(
+			long communityId, ContentResolver resolver) throws Exception {
+		List<Sharing> sharings = Entity.getEntities(
+				Sharing.class,
+				resolver,
+				CONTENT_URI,
+				null,
+				_ID_COMMUNITY + " = " + communityId,
+				null,
+				CREATION_DATE + " DESC");
+		
+		for (Sharing sharing : sharings) {
+			sharing.fetchGlobalIds(resolver);
+			sharing.fetchService(resolver);
+		}
+		
+		return sharings;
+	}
+	
+	public static int deleteCommunitySharings(
+			long communityId,
+			boolean forceDelete,
+			ContentResolver resolver
+	) throws Exception {
+		String where = _ID_COMMUNITY + " = " + communityId;
+		if (forceDelete)
+			return resolver.delete(CONTENT_URI, where, null);
+		else
+			return Entity.markEntitiesForDeletion(CONTENT_URI, where, null, resolver);
 	}
 	
 	@Override
@@ -154,6 +187,14 @@ public class Sharing extends Entity {
 						Communities.GLOBAL_ID,
 						globalIdCommunity,
 						resolver));
+	}
+	
+	public void fetchService(ContentResolver resolver) {
+		try {
+			service = Entity.getEntity(Service.class, serviceId, resolver);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -246,5 +287,13 @@ public class Sharing extends Entity {
 
 	public void setGlobalIdCommunity(String globalIdCommunity) {
 		this.globalIdCommunity = globalIdCommunity;
+	}
+	
+	@Override
+	public String toString() {
+		if (service != null)
+			return service.toString();
+		else
+			return "UNKNOWN SERVICE";
 	}
 }

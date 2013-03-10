@@ -1,11 +1,17 @@
 package org.ubicollab.android.boxsynctest;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.societies.android.api.cis.SocialContract;
 import org.ubicollab.android.boxsynctest.entitiy.Community;
 import org.ubicollab.android.boxsynctest.entitiy.CommunityActivity;
+import org.ubicollab.android.boxsynctest.entitiy.Entity;
+import org.ubicollab.android.boxsynctest.entitiy.EntityComparator;
 import org.ubicollab.android.boxsynctest.entitiy.Person;
+import org.ubicollab.android.boxsynctest.entitiy.Service;
+import org.ubicollab.android.boxsynctest.entitiy.Sharing;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +23,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +40,8 @@ public class ShowCommunityActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_show_community);
 		
+		Spinner serviceSpinner = (Spinner) findViewById(R.id.service_list);
+		
 		Intent intent = getIntent();
 		String serializedCommunity = intent.getStringExtra(EXTRA_COMMUNITY);
 		
@@ -41,6 +50,11 @@ public class ShowCommunityActivity extends Activity {
 			
 			try {
 				mOwner = Person.getEntity(Person.class, mCommunity.getOwnerId(), getContentResolver());
+				
+				List<Service> services = Service.getAllServices(getContentResolver());
+				ArrayAdapter<Service> serviceAdapter = new ArrayAdapter<Service>(this, android.R.layout.simple_spinner_item, services);
+				
+				serviceSpinner.setAdapter(serviceAdapter);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -68,13 +82,26 @@ public class ShowCommunityActivity extends Activity {
 	}
 	
 	private void updateFeed() {
-		try {
-			List<CommunityActivity> feed = CommunityActivity.getCommunityFeed(mCommunity.getId(), getContentResolver());
-			ArrayAdapter<CommunityActivity> adapter = new ArrayAdapter<CommunityActivity>(this, android.R.layout.simple_list_item_1, feed);
-			
-			((ListView) findViewById(R.id.community_activity_list_view)).setAdapter(adapter);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (mCommunity != null) {
+			try {
+				List<Entity> feed = new ArrayList<Entity>();
+				List<CommunityActivity> activities = CommunityActivity
+						.getCommunityFeed(mCommunity.getId(),
+								getContentResolver());
+				List<Sharing> sharings = Sharing.getSharingOfCommunity(
+						mCommunity.getId(), getContentResolver());
+				feed.addAll(activities);
+				feed.addAll(sharings);
+				Collections.sort(feed, new EntityComparator());
+
+				ArrayAdapter<Entity> adapter = new ArrayAdapter<Entity>(this,
+						android.R.layout.simple_list_item_1, feed);
+
+				((ListView) findViewById(R.id.community_activity_list_view))
+						.setAdapter(adapter);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -147,6 +174,30 @@ public class ShowCommunityActivity extends Activity {
 			
 			clearMessageField();
 			updateFeed();
+		}
+	}
+	
+	public void shareService(View view) {
+		if (mCommunity != null) {
+			Service service = (Service) ((Spinner) findViewById(R.id.service_list)).getSelectedItem();
+			
+			if (service == null) {
+				Toast.makeText(this, "No service selected", Toast.LENGTH_SHORT).show();
+			} else {
+				Sharing sharing = new Sharing();
+				sharing.setAccountName(Globals.ME_ENTRY.getAccountName());
+				sharing.setAccountType(Constants.ACCOUNT_TYPE);
+				sharing.setGlobalId(SocialContract.GLOBAL_ID_PENDING);
+				sharing.setDirty(1);
+				sharing.setType("monitor");
+				sharing.setOwnerId(Globals.ME_ENTRY.getPersonId());
+				sharing.setServiceId(service.getId());
+				sharing.setCommunityId(mCommunity.getId());
+				
+				sharing.insert(getContentResolver());
+				
+				updateFeed();
+			}
 		}
 	}
 	

@@ -68,6 +68,18 @@ public class Service extends Entity {
 				null);
 	}
 	
+	public static List<Service> getAllServices(
+			ContentResolver resolver) throws Exception {
+		return Entity.getEntities(
+				Service.class,
+				resolver,
+				CONTENT_URI,
+				null,
+				null,
+				null,
+				null);
+	}
+	
 	@Override
 	protected void populate(Cursor cursor) {
 		super.populate(cursor);
@@ -237,5 +249,10 @@ public class Service extends Entity {
 
 	public void setGlobalIdOwner(String globalIdOwner) {
 		this.globalIdOwner = globalIdOwner;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("(%d) %s", getId(), getName());
 	}
 }

@@ -1,10 +1,11 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
 
     android:useDefaultMargins="true"
     android:alignmentMode="alignBounds"
     android:columnOrderPreserved="false"
+    android:scrollbars="vertical"
 
     android:columnCount="4" >
     
@@ -74,6 +75,18 @@
         android:layout_gravity="fill_horizontal"
         android:layout_columnSpan="2" />
     
+    <Spinner
+		android:id="@+id/service_list"
+		android:layout_columnSpan="4"
+		android:prompt="@string/service_list_prompt" />
+    
+    <Button
+        android:id="@+id/service_share_button"
+        android:onClick="shareService"
+        android:layout_columnSpan="4"
+        android:layout_gravity="fill_horizontal"
+        android:text="@string/service_share_button" />
+    
     <EditText
         android:id="@+id/community_message_field"
         android:layout_columnSpan="3"
@@ -86,10 +99,11 @@
         android:id="@+id/community_post_button"
         android:onClick="postMessage"
         android:layout_gravity="fill_horizontal"
-        android:text="@string/community_post_button"  />
+        android:text="@string/community_post_button" />
     
     <ListView
         android:id="@+id/community_activity_list_view"
+        android:layout_gravity="fill"
         android:layout_columnSpan="4" />
 
 </GridLayout>

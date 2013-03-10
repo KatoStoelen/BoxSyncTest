@@ -43,5 +43,7 @@
     <string name="member_list_back_button">Back</string>
     <string name="membership_person_prompt">Select Member</string>
     <string name="membership_add_button">Add Member</string>
+    <string name="service_list_prompt">Select Service</string>
+    <string name="service_share_button">Share</string>
 
 </resources>

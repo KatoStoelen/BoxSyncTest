@@ -492,6 +492,11 @@ public abstract class Entity {
 	 * @param globalId The global ID of the entity.
 	 */
 	public abstract void setGlobalId(String globalId);
+	
+	
+	public abstract long getCreationDate();
+	
+	public abstract long getLastModifiedDate();
 
 	/**
 	 * Gets the account type of the entity.

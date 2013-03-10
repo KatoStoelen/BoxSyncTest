@@ -8,6 +8,7 @@ import org.ubicollab.android.boxsynctest.entitiy.CommunityActivity;
 import org.ubicollab.android.boxsynctest.entitiy.Entity;
 import org.ubicollab.android.boxsynctest.entitiy.Membership;
 import org.ubicollab.android.boxsynctest.entitiy.Person;
+import org.ubicollab.android.boxsynctest.entitiy.Sharing;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -161,6 +162,7 @@ public class CreateCommunityActivity extends Activity {
 							// SET FORCE DELETE TO FALSE WHEN SYNCING
 							Membership.deleteCommunityMemberships(mCommunity.getId(), true, getContentResolver());
 							CommunityActivity.deleteCommunityFeed(mCommunity.getId(), true, getContentResolver());
+							Sharing.deleteCommunitySharings(mCommunity.getId(), true, getContentResolver());
 							mCommunity.delete(getContentResolver());
 							//mCommunity.markForDeletion(getContentResolver());
 							
