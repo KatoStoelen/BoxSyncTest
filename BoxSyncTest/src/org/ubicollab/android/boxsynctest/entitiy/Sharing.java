@@ -27,6 +27,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 import static org.societies.android.api.cis.SocialContract.Sharing.*;
 
@@ -193,7 +194,7 @@ public class Sharing extends Entity {
 		try {
 			service = Entity.getEntity(Service.class, serviceId, resolver);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e("Sharing", e.getMessage(), e);
 		}
 	}
 	

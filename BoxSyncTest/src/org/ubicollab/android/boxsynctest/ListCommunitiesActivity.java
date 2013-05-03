@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.ContentObserver;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +20,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class ListCommunitiesActivity extends Activity {
+	
+	public static final String TAG = "ListCommunitiesActivity";
 	
 	private ListView mCommunityList;
 
@@ -63,7 +66,7 @@ public class ListCommunitiesActivity extends Activity {
 			
 			mCommunityList.setAdapter(adapter);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e(TAG, e.getMessage(), e);
 		}
 	}
 

@@ -31,6 +31,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		populateDatabase();
+		insertMe();
+		//insertMe2();
+		
 		fetchMeRecord();
 	}
 	
@@ -76,7 +79,47 @@ public class MainActivity extends Activity {
 			if (meEntries.size() > 0)
 				Globals.ME_ENTRY = meEntries.get(0);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e(TAG, e.getMessage(), e);
+		}
+	}
+	
+	private void insertMe() {
+		SharedPreferences preferences = getSharedPreferences("test", Context.MODE_PRIVATE);
+		boolean me = preferences.getBoolean("me", false);
+		
+		if (!me) {
+			ContentResolver resolver = getContentResolver();
+			
+			ContentValues values = new ContentValues();
+			values.put(SocialContract.Me._ID_PEOPLE, 1);
+			values.put(SocialContract.Me.DISPLAY_NAME, "Kato");
+			values.put(SocialContract.Me.NAME, "Kato Stølen");
+			values.put(SocialContract.Me.USER_NAME, "kato.stoelen@gmail.com");
+			values.put(SocialContract.Me.ACCOUNT_NAME, "p2p");
+			values.put(SocialContract.Me.ACCOUNT_TYPE, Constants.ACCOUNT_TYPE);
+			resolver.insert(SocialContract.Me.CONTENT_URI, values);
+			
+			preferences.edit().putBoolean("me", true).commit();
+		}
+	}
+	
+	private void insertMe2() {
+		SharedPreferences preferences = getSharedPreferences("test", Context.MODE_PRIVATE);
+		boolean me = preferences.getBoolean("me2", false);
+		
+		if (!me) {
+			ContentResolver resolver = getContentResolver();
+			
+			ContentValues values = new ContentValues();
+			values.put(SocialContract.Me._ID_PEOPLE, 2);
+			values.put(SocialContract.Me.DISPLAY_NAME, "UbiShare");
+			values.put(SocialContract.Me.NAME, "UbiShare Test");
+			values.put(SocialContract.Me.USER_NAME, "ubishare.test@gmail.com");
+			values.put(SocialContract.Me.ACCOUNT_NAME, "p2p");
+			values.put(SocialContract.Me.ACCOUNT_TYPE, Constants.ACCOUNT_TYPE);
+			resolver.insert(SocialContract.Me.CONTENT_URI, values);
+			
+			preferences.edit().putBoolean("me2", true).commit();
 		}
 	}
 	

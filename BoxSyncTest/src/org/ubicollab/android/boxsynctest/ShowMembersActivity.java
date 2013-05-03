@@ -11,6 +11,7 @@ import org.ubicollab.android.boxsynctest.entitiy.Person;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -54,7 +55,7 @@ public class ShowMembersActivity extends Activity {
 				
 				((Spinner) findViewById(R.id.membership_person_list)).setAdapter(spinnerAdapter);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.e(TAG, e.getMessage(), e);
 			}
 		}
 	}

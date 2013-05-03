@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -49,7 +50,7 @@ public class CreateCommunityActivity extends Activity {
 			
 			ownerSpinner.setAdapter(adapter);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e(TAG, e.getMessage(), e);
 		}
 		
 		Community community = null;
@@ -168,7 +169,7 @@ public class CreateCommunityActivity extends Activity {
 							
 							setResult(RESULT_CODE_DELETED, new Intent());
 						} catch (Exception e) {
-							e.printStackTrace();
+							Log.e(TAG, e.getMessage(), e);
 						}
 						
 						finish();

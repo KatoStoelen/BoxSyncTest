@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.ContentObserver;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -28,6 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ShowCommunityActivity extends Activity {
+	
+	public static final String TAG = "ShowCommunityActivity";
 	
 	public static final String EXTRA_COMMUNITY = "extra_community";
 	private static final int EDIT_REQUEST_CODE = 100;
@@ -56,7 +59,7 @@ public class ShowCommunityActivity extends Activity {
 				
 				serviceSpinner.setAdapter(serviceAdapter);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.e(TAG, e.getMessage(), e);
 			}
 		}
 		
@@ -100,7 +103,7 @@ public class ShowCommunityActivity extends Activity {
 				((ListView) findViewById(R.id.community_activity_list_view))
 						.setAdapter(adapter);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.e(TAG, e.getMessage(), e);
 			}
 		}
 	}
@@ -125,7 +128,7 @@ public class ShowCommunityActivity extends Activity {
 						mOwner = Person.getEntity(Person.class,
 								mCommunity.getOwnerId(), getContentResolver());
 					} catch (Exception e) {
-						e.printStackTrace();
+						Log.e(TAG, e.getMessage(), e);
 					}
 				}
 				populate();

@@ -21,5 +21,5 @@ package org.ubicollab.android.boxsynctest;
  */
 public interface Constants {
 
-	public static final String ACCOUNT_TYPE = "com.box";
+	public static final String ACCOUNT_TYPE = "p2p";
 }

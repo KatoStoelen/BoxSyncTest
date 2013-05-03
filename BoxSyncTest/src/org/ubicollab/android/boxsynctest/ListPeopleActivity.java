@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,8 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ListPeopleActivity extends Activity {
+	
+	public static final String TAG = "ListPeopleActivity";
 
 	private ListView mPeopleList;
 	
@@ -55,7 +58,7 @@ public class ListPeopleActivity extends Activity {
 			
 			mPeopleList.setAdapter(adapter);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e(TAG, e.getMessage(), e);
 		}
 	}
 
